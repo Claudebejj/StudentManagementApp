@@ -13,6 +13,14 @@ public function index()
     return Student::all();
 }
 
+
+public function list()
+{
+    $students = Student::all();
+    return view('students.index', compact('students'));
+}
+
+
 public function store(Request $request)
 {
     $data = $request->validate([
