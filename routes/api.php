@@ -20,10 +20,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::prefix('students')->group(function () {
     Route::get('/', [StudentController::class, 'index']);
     Route::post('/', [StudentController::class, 'store']);
     Route::get('/{id}', [StudentController::class, 'show']);
     Route::delete('/{id}', [StudentController::class, 'destroy']);
+});
+
+Route::prefix('courses')->group(function () {
+    Route::get('/', [CourseController::class, 'index']);
+    Route::post('/', [CourseController::class, 'store']);
+    Route::get('/{id}', [CourseController::class, 'show']);
+    Route::delete('/{id}', [CourseController::class, 'destroy']);
 });
