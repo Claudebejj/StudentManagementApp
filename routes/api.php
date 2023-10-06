@@ -34,15 +34,13 @@ Route::prefix('students')->group(function () {
 
 
 Route::prefix('courses')->group(function () {
-    Route::get('/', [StudentController::class, 'index']);
+    Route::get('/', [CourseController::class, 'index']);
     
     // Protect the POST and DELETE routes with auth:api middleware
     Route::middleware(['auth:api'])->group(function () {
-        Route::post('/', [StudentController::class, 'store']);
-        Route::delete('/{id}', [StudentController::class, 'destroy']);
+        Route::post('/', [CourseController::class, 'store']);
+        Route::delete('/{id}', [CourseController::class, 'destroy']);
     });
 
-    Route::get('/{id}', [StudentController::class, 'show']);
+    Route::get('/{id}', [CourseController::class, 'show']);
 });
-
-
