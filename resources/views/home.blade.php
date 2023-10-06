@@ -15,6 +15,8 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+                    <p><a href="{{ route('StudentsList') }}">List all Students</a></p>
                 </div>
             </div>
         </div>

@@ -13,6 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <p><a href="{{ route('home') }}">Home</a></p>
                     <ul>
                         @foreach ($students as $student)
                             <li>{{ $student->name }}</li>
