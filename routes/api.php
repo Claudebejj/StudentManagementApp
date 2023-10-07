@@ -20,11 +20,26 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::post('/login', function (Request $request) {
+    $credentials = $request->only('email', 'password');
+    $attempt = Auth::attempt($credentials, false, false);
+    if ($attempt) {
+        $user = auth()->user();
+        $token = $user->createToken('authToken')->plainTextToken;
+        return response()->json(['token' => $token]);
+    } else {
+        return response()->json(['message' => 'Invalid credentials'], 401);
+    }
+});
+
+
+
+
 Route::prefix('students')->group(function () {
     Route::get('/', [StudentController::class, 'index']);
     
-    // Protect the POST and DELETE routes with auth:api middleware
-    Route::middleware(['auth:api'])->group(function () {
+    Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/', [StudentController::class, 'store']);
         Route::delete('/{id}', [StudentController::class, 'destroy']);
     });
@@ -36,8 +51,7 @@ Route::prefix('students')->group(function () {
 Route::prefix('courses')->group(function () {
     Route::get('/', [CourseController::class, 'index']);
     
-    // Protect the POST and DELETE routes with auth:api middleware
-    Route::middleware(['auth:api'])->group(function () {
+    Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/', [CourseController::class, 'store']);
         Route::delete('/{id}', [CourseController::class, 'destroy']);
     });
